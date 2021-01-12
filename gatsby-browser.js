@@ -2,6 +2,8 @@
 const React = require('react')
 const Layout = require('./src/components/Layout').default
 const LayoutLogin = require('./src/components/LayoutLogin').default
+const { Provider } = require('react-redux')
+const createStore = require('./src/store/createStore').default
 
 // 方法名称: wrapPageElement
 // element: 每个页面的页面元素
@@ -21,4 +23,10 @@ function FinalLayout({ element }) {
   ) : (
     <Layout>{element}</Layout>
   )
+}
+
+// element: 最外层组件
+// 配置客户端的 store
+exports.wrapRootElement = ({ element }) => {
+  return <Provider store={createStore()}>{element}</Provider>
 }

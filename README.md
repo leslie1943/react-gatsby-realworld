@@ -1,6 +1,14 @@
 ### 创建项目
 - `gatsby new xxxx https://github.com/gatsbyjs/gatsby-starter-hello-world`
 
+### 配置 redux + saga
+- `npm install redux react-redux redux-saga`
+- 详情见 `gatsby-browser.js` 和 `gatsby-ssr.js`
+
+### 编译生产环境
+1. `npm run build`
+2. `npm run serve`
+
 ### 创建页面 方式(1):
 - 在`pages`文件下创建不同的`.js`文件
 

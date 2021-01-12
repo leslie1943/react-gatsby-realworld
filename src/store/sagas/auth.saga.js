@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { takeEvery, put } from 'redux-saga/effects'
-// takeEvery: 接收 action
-// put: 触发 action
-// delay: 延时执行
+// takeEvery: 接收 异步action, 执行异步调用
+// put: 触发 同步action, 执行 reducer 更新数据
 
 function* handleLogin({ payload }) {
   try {
@@ -28,7 +27,19 @@ function* handleLogin({ payload }) {
   }
 }
 
+function* handleLoadUser({ payload }) {
+  // 调用接口
+  const { data } = yield axios.get('/user', {
+    headers: {
+      Authorization: `Token ${payload}`,
+    },
+  })
+  yield put({ type: 'loadUserSuccess', payload: data.user })
+}
+
 export default function* authSaga() {
-  //  异步 action 🎃
+  //  接收 登录 异步 action 🎃
   yield takeEvery('login', handleLogin)
+  // 接收 获取信息 异步 action 🎃
+  yield takeEvery('loadUser', handleLoadUser)
 }

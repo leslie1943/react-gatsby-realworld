@@ -4,6 +4,8 @@
 ### 配置 redux + saga
 - `npm install redux react-redux redux-saga`
 - 详情见 `gatsby-browser.js` 和 `gatsby-ssr.js`
+- `saga`: 干异步的活, `vuex 中的 actions `
+- `reducer`: 干同步的活, `vuex 中的 mutations `
 
 ### 编译生产环境
 1. `npm run build`

@@ -13,7 +13,7 @@ export default function Home() {
             <Toggle />
             <div className="article-preview">
               <div className="article-meta">
-                <a href="profile.html">
+                <a>
                   <img alt="" src="http://i.imgur.com/Qr71crq.jpg" />
                 </a>
                 <div className="info">
@@ -35,13 +35,11 @@ export default function Home() {
             </div>
             <div className="article-preview">
               <div className="article-meta">
-                <a href="profile.html">
+                <a>
                   <img alt="" src="http://i.imgur.com/N4VcUeJ.jpg" />
                 </a>
                 <div className="info">
-                  <a href className="author">
-                    Albert Pai
-                  </a>
+                  <a className="author">Albert Pai</a>
                   <span className="date">January 20th</span>
                 </div>
                 <button

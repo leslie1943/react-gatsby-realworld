@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import counterReducer from './counter.reducer'
 import authReducer from './auth.reducer'
+import articleReducer from './article.reducer'
 
 // 合并 reducers
-export default combineReducers({ counterReducer, authReducer })
+export default combineReducers({ counterReducer, authReducer, articleReducer })

@@ -28,6 +28,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'import/no-extraneous-dependencies': 'off',
     'compat/compat': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

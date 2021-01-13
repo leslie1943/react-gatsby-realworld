@@ -30,6 +30,9 @@ module.exports = {
     'compat/compat': 'off',
     'no-param-reassign': 'off',
     'react/no-danger': 'off',
+    'react/destructuring-assignment': 'off',
+    'jsx-a11y/html-has-lang': 'off',
+    'react/require-default-props': 'off',
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

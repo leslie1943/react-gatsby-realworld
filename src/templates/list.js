@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner'
 import Toggle from '../components/Toggle'
@@ -57,11 +57,11 @@ function Lists({ articles }) {
           <i className="ion-heart" /> {article.favoritesCount}
         </button>
       </div>
-      <a className="preview-link">
+      <Link className="preview-link" to={`/article/${article.slug}`}>
         <h1>{article.title}</h1>
         <p>{article.description}</p>
         <span>Read more...</span>
-      </a>
+      </Link>
     </div>
   ))
 }

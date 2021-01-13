@@ -12,7 +12,6 @@ function* loadArticles({ limit, offset }) {
         offset,
       },
     })
-    console.info('data articles', data)
     yield put({ type: 'loadArticlesSuccess', payload: data.articles })
   } catch (e) {
     console.info(e)

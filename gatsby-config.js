@@ -17,5 +17,7 @@ module.exports = {
         apiUrl: 'https://conduit.productionready.io/api',
       },
     },
+    'gatsby-plugin-article',
+    'gatsby-disable-404',
   ],
 }

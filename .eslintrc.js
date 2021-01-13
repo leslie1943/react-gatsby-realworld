@@ -29,6 +29,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'compat/compat': 'off',
     'no-param-reassign': 'off',
+    'react/no-danger': 'off',
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

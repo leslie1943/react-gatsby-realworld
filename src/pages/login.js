@@ -23,13 +23,12 @@ const Login = () => {
     return null
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     // 阻止默认form提交
     e.preventDefault()
     // 获取表单values
     const passwordValue = password.input.value
     const emailValue = email.input.value
-
     dispatch(
       // 异步执行, 所以这个 action 会被 saga 接受
       {
@@ -75,6 +74,7 @@ const Login = () => {
                 />
               </fieldset>
               <button
+                disabled={authReducer.loading}
                 type="submit"
                 className="btn btn-lg btn-primary pull-xs-right"
               >

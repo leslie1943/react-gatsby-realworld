@@ -4,13 +4,12 @@ import { takeEvery, put } from 'redux-saga/effects'
 // put: 触发 同步action, 执行 reducer 更新数据
 
 function* handleLogin({ payload }) {
+  yield put({ type: 'loginDoding' })
   try {
     // 调用接口
     const { data } = yield axios.post('/users/login', payload)
-
     // 数据本地化
     localStorage.setItem('token', data.user.token)
-
     // 触发同步方法, reducer 接受此方法
     yield put({ type: 'loginSuccess', payload: data.user })
   } catch (error) {

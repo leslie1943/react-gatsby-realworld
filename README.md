@@ -11,6 +11,14 @@
 1. `npm run build`
 2. `npm run serve`
 
+### 实现客户端路由
+- `npm install gatsby-plugin-create-client-paths`
+- 然后在`gatsby-config.js`中配置上面的插件
+- 在`pages`文件夹下新建`app.js`, 在这里配置客户端路由规则
+
+### 实现受保护的路由
+- 在`components`下新建`PrivateRoute`, 然后在`app.js`中引入这个组件
+
 ### 创建页面 方式(1):
 - 在`pages`文件下创建不同的`.js`文件
 

@@ -26,6 +26,8 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 0,
     'no-console': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'compat/compat': 'off',
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

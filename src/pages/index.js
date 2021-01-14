@@ -1,44 +1,58 @@
 import React, { useState } from 'react'
-// Paper,
-import { Button, Grid, Link, Tooltip } from '@material-ui/core'
+import { Button, Grid, Tooltip } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-// import { makeStyles } from '@material-ui/core/styles'
 import DialogAdd from '../components/DialogAdd'
 import ShortCutCard from '../components/ShortCutCard'
 import styles from '../styles/index.module.scss'
 import { getStore, setStore } from '../utils/localStore'
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   paper: {
-//     background: '#272c34',
-//     padding: theme.spacing(2),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-//   },
-// }))
-
 export default function Home() {
   const [open, setOpen] = useState(false)
   const [items, setItems] = useState(getStore('shortcut') || [])
   const [currentItem, setCurrentItem] = useState({})
-  // const classes = useStyles()
 
-  const onSubmit = (values) => {
-    // 存储
-    const shortcutItems = getStore('shortcut') || []
-    shortcutItems.push(values)
-    // 更新本地数据
-    setStore('shortcut', shortcutItems)
-    // 更新组件数据
-    setItems(shortcutItems)
-    // 关闭弹窗
+  // 关闭弹窗
+  const onClose = () => {
     setOpen(false)
+    setCurrentItem({})
   }
 
-  const onOpen = (item) => {
+  const onSubmit = (values) => {
+    // 先获取现存的数据
+    const localShortcuts = getStore('shortcut') || []
+
+    // 更新操作
+    if (values.action === 'UPDATE') {
+      localShortcuts.forEach((item, index) => {
+        if (item.id === values.id) localShortcuts[index] = values
+      })
+    } else {
+      // 新增操作: 直接添加
+      localShortcuts.push(values)
+    }
+    // 更新本地数据
+    setStore('shortcut', localShortcuts)
+    // 更新组件数据
+    setItems(localShortcuts)
+    // 关闭弹窗
+    onClose()
+  }
+
+  // 删除某个快捷方式
+  const onDelete = (item) => {
+    const localShortcuts = getStore('shortcut') || []
+    const filterredShortcuts = localShortcuts.filter(
+      (doc) => doc.id !== item.id
+    )
+    // 更新本地数据
+    setStore('shortcut', filterredShortcuts)
+    // // 更新组件数据
+    setItems(filterredShortcuts)
+
+    onClose()
+  }
+
+  const onCardAction = (item) => {
     setCurrentItem(item)
     setOpen(true)
   }
@@ -48,9 +62,7 @@ export default function Home() {
       <Grid container spacing={1}>
         {items.map((item) => (
           <Grid key={item.id} item xs={1}>
-            <Link href={item.url}>
-              <ShortCutCard item={item} onOpen={onOpen} />
-            </Link>
+            <ShortCutCard item={item} onCardAction={onCardAction} />
           </Grid>
         ))}
         <Grid
@@ -82,9 +94,8 @@ export default function Home() {
         open={open}
         item={currentItem}
         onSubmit={onSubmit}
-        onClose={() => {
-          setOpen(false)
-        }}
+        onClose={onClose}
+        onDelete={onDelete}
       />
     </div>
   )

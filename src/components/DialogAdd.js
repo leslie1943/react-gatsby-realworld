@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Button,
   TextField,
@@ -7,23 +7,35 @@ import {
   DialogContent,
   DialogTitle,
 } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
+import IconButton from '@material-ui/core/IconButton'
 
 import useInput from '../hooks/useInput'
 import { generateId } from '../utils/index'
 
-export default function FormDialog({ open, onClose, onSubmit }) {
+export default function DialogAdd({ open, onClose, onSubmit, onDelete, item }) {
   const name = useInput('')
   const url = useInput('')
+  // 如果 useState 需要接收 props的值需要 useEffect 监听 props的值
+  useEffect(() => {
+    name.input.setValue(item.name || '')
+    url.input.setValue(item.url || '')
+  }, [item])
 
-  const handleClose = () => {
-    onClose()
-  }
+  /**
+   * 弹窗触发提交事件
+   */
   const handleSubmit = () => {
     const nameValue = name.input.value
     const urlValue = url.input.value
     if (nameValue.trim() && urlValue.trim()) {
-      onSubmit({ name: nameValue, url: urlValue, id: generateId() })
-      // 重置
+      onSubmit({
+        name: nameValue,
+        url: urlValue,
+        id: item.id || generateId(),
+        action: item.id ? 'UPDATE' : 'CREATE',
+      })
+      // 重置表单数据
       name.input.setValue('')
       url.input.setValue('')
     }
@@ -35,7 +47,7 @@ export default function FormDialog({ open, onClose, onSubmit }) {
         disableBackdropClick
         disableEscapeKeyDown
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="form-dialog-title"
         maxWidth="md"
       >
@@ -66,12 +78,17 @@ export default function FormDialog({ open, onClose, onSubmit }) {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="contained" onClick={onClose}>
             取消
           </Button>
           <Button variant="contained" onClick={handleSubmit} color="primary">
             完成
           </Button>
+          {item.url && (
+            <IconButton aria-label="delete" onClick={() => onDelete(item)}>
+              <DeleteIcon fontSize="large" />
+            </IconButton>
+          )}
         </DialogActions>
       </Dialog>
     </div>

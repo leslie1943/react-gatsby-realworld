@@ -11,7 +11,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "install": "npm install && cd /plugins/gatsby-source-list && install"
+    "install": "npm install && cd ./plugins/gatsby-source-list && npm install"
     
   },
   "dependencies": {

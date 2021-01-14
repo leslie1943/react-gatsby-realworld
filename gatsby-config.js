@@ -7,6 +7,7 @@
 module.exports = {
   /* Your site config here */
   plugins: [
+    'gatsby-plugin-sass',
     {
       resolve: 'gatsby-plugin-create-client-paths',
       options: { prefixes: ['/app/*'] }, // 以 /app/ 开头的请求地址都属于客户端路由
@@ -19,5 +20,6 @@ module.exports = {
     },
     'gatsby-plugin-article',
     'gatsby-disable-404',
+    `gatsby-plugin-material-ui`,
   ],
 }

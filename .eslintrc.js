@@ -33,6 +33,8 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'jsx-a11y/html-has-lang': 'off',
     'react/require-default-props': 'off',
+    'import/prefer-default-export': 'off',
+    'consistent-return': 'off',
   },
   settings: {
     polyfills: ['fetch', 'promises', 'url'],

@@ -19,6 +19,15 @@
 ### 实现受保护的路由
 - 在`components`下新建`PrivateRoute`, 然后在`app.js`中引入这个组件
 
+### 使用 material-ui
+- `npm install @material-ui/core`
+- `npm install gatsby-plugin-material-ui`
+或者
+
+### 配置 scss,sass支持
+- `npm install sass gatsby-plugin-sass`
+- 在`gatsby-config.js`中的`plugins`中添加`gatsby-plugin-sass`
+
 ### 创建页面 方式(1):
 - 在`pages`文件下创建不同的`.js`文件
 

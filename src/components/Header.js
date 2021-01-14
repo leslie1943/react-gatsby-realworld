@@ -25,7 +25,9 @@ const Header = () => {
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
             {/* Add "active" class when you're on that page" */}
-            <a className="nav-link active">Home {authReducer.success}</a>
+            <Link to="/list" className="nav-link active">
+              Article list
+            </Link>
           </li>
           {authReducer.success ? (
             <Login username={authReducer.user.username} />

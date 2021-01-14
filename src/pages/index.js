@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 // Paper,
-import { Button, Grid, Tooltip } from '@material-ui/core'
+import { Button, Grid, Link, Tooltip } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 // import { makeStyles } from '@material-ui/core/styles'
 import DialogAdd from '../components/DialogAdd'
@@ -48,7 +48,9 @@ export default function Home() {
       <Grid container spacing={1}>
         {items.map((item) => (
           <Grid key={item.id} item xs={1}>
-            <ShortCutCard item={item} onOpen={onOpen} />
+            <Link href={item.url}>
+              <ShortCutCard item={item} onOpen={onOpen} />
+            </Link>
           </Grid>
         ))}
         <Grid

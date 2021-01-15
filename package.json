@@ -5,13 +5,12 @@
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
+    "build": "node install.js && gatsby build",
     "develop": "gatsby clean && gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "install": "npm install && cd plugins/gatsby-source-list && npm install"
+    "clean": "gatsby clean"
     
   },
   "dependencies": {

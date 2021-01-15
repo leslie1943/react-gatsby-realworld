@@ -6,6 +6,11 @@
 
 module.exports = {
   /* Your site config here */
+  siteMetadata: {
+    title: 'Leslie Gatsby',
+    author: 'Leslie Su',
+    description: 'Best SSR',
+  },
   plugins: [
     'gatsby-plugin-sass',
     {

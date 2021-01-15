@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
 import { Button, Grid, Tooltip } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
+import MuiAlert from '@material-ui/lab/Alert'
+
 import DialogAdd from '../components/DialogAdd'
 import ShortCutCard from '../components/ShortCutCard'
+import SEO from '../components/SEO'
+
 import styles from '../styles/index.module.scss'
 import { getStore, setStore } from '../utils/localStore'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 export default function Home() {
   const [open, setOpen] = useState(false)
@@ -58,45 +66,58 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.home}>
-      <Grid container spacing={1}>
-        {items.map((item) => (
-          <Grid key={item.id} item xs={1}>
-            <ShortCutCard item={item} onCardAction={onCardAction} />
+    <div>
+      <SEO title="Gatsby Home" />
+      <div className={styles.alert}>
+        <Grid container spacing={1} style={{ marginBottom: 40 }}>
+          <Grid item xs={4} />
+          <Grid item xs={4}>
+            <Alert severity="success">
+              This Page Is For Demostrate Short Cuts!
+            </Alert>
           </Grid>
-        ))}
-        <Grid
-          item
-          xs={2}
-          style={{
-            borderRadius: 8,
-            display: 'flex',
-            alignContent: 'center',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}
-        >
-          <Tooltip title="添加快捷方式" placement="right-end">
-            <Button
-              onClick={() => {
-                setOpen(true)
-              }}
-              variant="contained"
-              color="secondary"
-            >
-              <AddIcon />
-            </Button>
-          </Tooltip>
+          <Grid item xs={4} />
         </Grid>
-      </Grid>
-
-      <DialogAdd
-        open={open}
-        item={currentItem}
-        onSubmit={onSubmit}
-        onClose={onClose}
-        onDelete={onDelete}
-      />
+      </div>
+      <div className={styles.home}>
+        <Grid container spacing={1}>
+          {items.map((item) => (
+            <Grid key={item.id} item xs={1}>
+              <ShortCutCard item={item} onCardAction={onCardAction} />
+            </Grid>
+          ))}
+          <Grid
+            item
+            xs={2}
+            style={{
+              borderRadius: 8,
+              display: 'flex',
+              alignContent: 'center',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}
+          >
+            <Tooltip title="添加快捷方式" placement="right-end">
+              <Button
+                onClick={() => {
+                  setOpen(true)
+                }}
+                variant="contained"
+                color="secondary"
+              >
+                <AddIcon />
+              </Button>
+            </Tooltip>
+          </Grid>
+        </Grid>
+        <DialogAdd
+          open={open}
+          item={currentItem}
+          onSubmit={onSubmit}
+          onClose={onClose}
+          onDelete={onDelete}
+        />
+      </div>
     </div>
   )
 }

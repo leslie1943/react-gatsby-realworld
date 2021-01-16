@@ -1,23 +1,55 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { graphql } from 'gatsby'
 import axios from 'axios'
+import useInput from '../hooks/useInput'
 
 const Article = ({ data, slug }) => {
+  // 使用钩子函数设置输入框的值
+  const comment = useInput('')
+  // 获取 authReducer
+  const authReducer = useSelector((state) => state.authReducer)
+
+  // 组件状态数据
   const [article, setArticle] = useState({})
+  const [comments, setComments] = useState([])
+
+  // 加载组件静态部分的数据: 文章详情
   useEffect(() => {
     if (data) {
       setArticle(data.articlesList)
-      return
     }
-
-    // 加载数据
+    // 加载动态数据数据
     const autoLoad = async () => {
       const { data: dataArticle } = await axios.get(`/articles/${slug}`)
       setArticle(dataArticle.article)
+      const { data: dataComments } = await axios.get(
+        `/articles/${slug}/comments`
+      )
+      setComments(dataComments.comments)
     }
     // 调用
     autoLoad()
-  })
+  }, [])
+
+  const addComment = async () => {
+    const commentValue = comment.input.value
+    const params = { comment: { body: commentValue } }
+    const headers = {
+      headers: { Authorization: `Token ${authReducer.user.token}` },
+    }
+
+    const response = await axios.post(
+      `/articles/${slug}/comments`,
+      params,
+      headers
+    )
+    if (response.status === 200) {
+      setComments([response.data.comment, ...comments])
+      comment.input.setValue('')
+    }
+  }
+
   return (
     <div className="article-page">
       <div className="banner">
@@ -62,7 +94,8 @@ const Article = ({ data, slug }) => {
                   className="form-control"
                   placeholder="Write a comment..."
                   rows={3}
-                  defaultValue=""
+                  value={comment.input.value}
+                  onChange={comment.input.onChange}
                 />
               </div>
               <div className="card-footer">
@@ -71,57 +104,35 @@ const Article = ({ data, slug }) => {
                   src="http://i.imgur.com/Qr71crq.jpg"
                   className="comment-author-img"
                 />
-                <button type="button" className="btn btn-sm btn-primary">
+                <button
+                  onClick={addComment}
+                  type="button"
+                  className="btn btn-sm btn-primary"
+                >
                   Post Comment
                 </button>
               </div>
             </form>
             {/* 评论 */}
-            <div className="card">
-              <div className="card-block">
-                <p className="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
+            {comments.map((item) => (
+              <div key={item.id} className="card">
+                <div className="card-block">
+                  <p className="card-text">{item.body}</p>
+                </div>
+                <div className="card-footer">
+                  <a className="comment-author">
+                    <img
+                      alt=""
+                      src={item.author?.image}
+                      className="comment-author-img"
+                    />
+                  </a>
+                  &nbsp;
+                  <a className="comment-author">{item.author?.username}</a>
+                  <span className="date-posted">{item.createdAt}</span>
+                </div>
               </div>
-              <div className="card-footer">
-                <a className="comment-author">
-                  <img
-                    alt=""
-                    src="http://i.imgur.com/Qr71crq.jpg"
-                    className="comment-author-img"
-                  />
-                </a>
-                &nbsp;
-                <a className="comment-author">Jacob Schmidt</a>
-                <span className="date-posted">Dec 29th</span>
-              </div>
-            </div>
-            {/* 评论 */}
-            <div className="card">
-              <div className="card-block">
-                <p className="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-              </div>
-              <div className="card-footer">
-                <a className="comment-author">
-                  <img
-                    alt=""
-                    src="http://i.imgur.com/Qr71crq.jpg"
-                    className="comment-author-img"
-                  />
-                </a>
-                &nbsp;
-                <a className="comment-author">Jacob Schmidt</a>
-                <span className="date-posted">Dec 29th</span>
-                <span className="mod-options">
-                  <i className="ion-edit" />
-                  <i className="ion-trash-a" />
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

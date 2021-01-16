@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from '@material-ui/core'
+
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
@@ -30,31 +32,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function ShortCutCard({ item, onOpen }) {
+export default function ShortCutCard({ item, onCardAction }) {
   const classes = useStyles()
 
   const getTwoLetters = (value) => {
-    if (value && value.length > 2) {
-      return value.substring(0, 2)
+    if (value && value.length > 4) {
+      return value.substring(0, 4)
     }
     return value
-  }
-
-  const handleOpen = () => {
-    onOpen()
   }
 
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {getTwoLetters(item.name)}
-          </Avatar>
+          <Link href={item.url}>
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {getTwoLetters(item.name)}
+            </Avatar>
+          </Link>
         }
         title={getTwoLetters(item.name)}
         action={
-          <IconButton aria-label="settings" onClick={handleOpen}>
+          <IconButton aria-label="settings" onClick={() => onCardAction(item)}>
             <MoreVertIcon />
           </IconButton>
         }

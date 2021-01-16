@@ -24,9 +24,13 @@ const Header = () => {
         </Link>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
-            {/* Add "active" class when you're on that page" */}
             <Link to="/list" className="nav-link active">
               Article list
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/counter" className="nav-link">
+              Redux counter
             </Link>
           </li>
           {authReducer.success ? (
@@ -44,19 +48,21 @@ function Login({ username }) {
   return (
     <>
       <li className="nav-item">
-        <a className="nav-link">
+        <Link to="/app/create" className="nav-link">
           <i className="ion-compose" />
           &nbsp;New Post
-        </a>
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link">
+        <Link to="/app/settings" className="nav-link">
           <i className="ion-gear-a" />
           &nbsp;Settings
-        </a>
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link">{username}</a>
+        <Link to="/app/settings" className="nav-link">
+          {username}
+        </Link>
       </li>
     </>
   )
@@ -66,10 +72,14 @@ function Logout() {
   return (
     <>
       <li className="nav-item">
-        <a className="nav-link">Sign in</a>
+        <Link to="/login" className="nav-link">
+          Sign in
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link">Sign up</a>
+        <Link to="/login" className="nav-link">
+          Sign up
+        </Link>
       </li>
     </>
   )

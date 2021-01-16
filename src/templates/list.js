@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Banner from '../components/Banner'
 import Toggle from '../components/Toggle'
 import Sidebar from '../components/Sidebar'
+import SEO from '../components/SEO'
 
 export default function List({ data, pageContext }) {
   const { skip, limit } = pageContext
@@ -21,6 +22,7 @@ export default function List({ data, pageContext }) {
 
   return (
     <div className="home-page">
+      <SEO title="Gatsby Articles" />
       <Banner />
       <div className="container page">
         <div className="row">

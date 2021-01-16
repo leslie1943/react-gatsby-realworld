@@ -1,11 +1,17 @@
-const localUtil = window.localStorage
+let localUtil = null
+
+if (typeof window !== `undefined`) {
+  localUtil = window.localStorage
+}
 
 export const setStore = (name, content) => {
   if (!name) return
   if (typeof content !== 'string') {
     content = JSON.stringify(content)
   }
-  localUtil.setItem(name, content)
+  if (localUtil) {
+    localUtil.setItem(name, content)
+  }
 }
 
 /**
@@ -13,7 +19,7 @@ export const setStore = (name, content) => {
  */
 export const getStore = (name) => {
   if (!name) return
-  let value = localUtil.getItem(name)
+  let value = localUtil ? localUtil.getItem(name) : ''
   if (value !== null) {
     try {
       value = JSON.parse(value)
@@ -29,5 +35,7 @@ export const getStore = (name) => {
  */
 export const removeStore = (name) => {
   if (!name) return
-  localUtil.removeItem(name)
+  if (localUtil) {
+    localUtil.removeItem(name)
+  }
 }
